@@ -1,4 +1,4 @@
-FROM ubuntu:16.10
+FROM ubuntu:latest
 MAINTAINER adin 
 
 ENV PYTHON_VERSION 3.5
@@ -47,7 +47,6 @@ RUN git clone https://github.com/opencv/opencv.git &&\
       -D BUILD_DOCS=OFF \
       -D BUILD_TESTS=OFF \
       -D BUILD_PERF_TESTS=OFF \
-      -D BUILD_PYTHON_SUPPORT=ON \
       -D WITH_TBB=ON \
       -D WITH_OPENMP=ON \
       -D WITH_IPP=ON \
