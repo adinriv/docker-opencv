@@ -1,22 +1,32 @@
-FROM ubuntu:latest
+FROM ubuntu:rolling
 MAINTAINER adin 
 
-ENV PYTHON_VERSION 3.5
+ENV PYTHON_VERSION 3.6
 ENV OPENCV_VERSION 3.2.0
 
 ENV NUM_CORES 4
+
+
 
 # Install OpenCV
 RUN apt-get -y update -qq && \
     apt-get -y install python$PYTHON_VERSION-dev wget unzip \
                        build-essential cmake git pkg-config libatlas-base-dev \
-                       # gfortran \
                        libgtk2.0-dev \
                        libavcodec-dev libavformat-dev \
-                       libswscale-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libv4l-dev \
+                       libswscale-dev libjpeg-dev libpng-dev libtiff-dev libv4l-dev \
                        qt4-default \
                        python${PYTHON_VERSION%%.*}-pip &&\
-    apt-get autoclean autoremove
+    # Latest ubuntu come without jasper
+    # So, get it, install it, and then clean
+    wget http://launchpadlibrarian.net/257156898/libjasper1_1.900.1-debian1-2.4+deb8u1_amd64.deb && \
+    wget http://launchpadlibrarian.net/257156894/libjasper-dev_1.900.1-debian1-2.4+deb8u1_amd64.deb && \
+    dpkg -i libjasper1_1.900.1-debian1-2.4+deb8u1_amd64.deb && \
+    dpkg -i libjasper-dev_1.900.1-debian1-2.4+deb8u1_amd64.deb && \
+    apt-get install -f libjasper-dev && \
+
+    apt-get autoclean autoremove && \
+    rm libjasper-dev_1.900.1-debian1-2.4+deb8u1_amd64.deb libjasper1_1.900.1-debian1-2.4+deb8u1_amd64.deb
 
 # Note that ${PYTHON_VERSION%%.*} extracts the major version
 # Details: https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html#Shell-Parameter-Expansion
@@ -65,8 +75,6 @@ RUN git clone https://github.com/opencv/opencv.git &&\
 
 # Change working dirs
 WORKDIR /buildls
-
-# RUN apt-get -y autoclean && apt-get -y autoremove
 
 # Define default command.
 CMD ["bash"]
