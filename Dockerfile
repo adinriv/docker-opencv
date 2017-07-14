@@ -10,13 +10,39 @@ ENV NUM_CORES 4
 
 # Install OpenCV
 RUN apt-get -y update -qq && \
-    apt-get -y install python$PYTHON_VERSION-dev wget unzip \
-                       build-essential cmake git pkg-config libatlas-base-dev \
+    apt-get -y install python$PYTHON_VERSION-dev \
+                       python${PYTHON_VERSION%%.*}-pip \
+
+                       wget \
+                       unzip \
+
+                       # Required
+                       build-essential \
+                       cmake \
+                       git \
+                       pkg-config \
+                       libatlas-base-dev \
                        libgtk2.0-dev \
-                       libavcodec-dev libavformat-dev \
-                       libswscale-dev libjpeg-dev libpng-dev libtiff-dev libv4l-dev \
+                       libavcodec-dev \
+                       libavformat-dev \
+                       libswscale-dev \
+                        
+                       # Optional
+                       libtbb2 libtbb-dev \
+                       libjpeg-dev \
+                       libpng-dev \
+                       libtiff-dev \
+                       libv4l-dev \
+                       libdc1394-22-dev \
+
                        qt4-default \
-                       python${PYTHON_VERSION%%.*}-pip &&\
+
+                       # Missing libraries for GTK
+                       libatk-adaptor \
+                       libcanberra-gtk-module \
+                       &&\
+
+
     # Latest ubuntu come without jasper
     # So, get it, install it, and then clean
     wget http://launchpadlibrarian.net/257156898/libjasper1_1.900.1-debian1-2.4+deb8u1_amd64.deb && \
@@ -74,7 +100,7 @@ RUN git clone https://github.com/opencv/opencv.git &&\
     rm -r /opencv_contrib 
 
 # Change working dirs
-WORKDIR /buildls
+WORKDIR /builds
 
 # Define default command.
 CMD ["bash"]
