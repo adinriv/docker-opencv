@@ -13,7 +13,7 @@ Also, we will share the source code directories `-v=$(pwd)/..:$(pwd)/..` (this a
     docker run -it --rm \
       --env DISPLAY=$DISPLAY --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
       -v=$(pwd)/..:$(pwd)/.. -w=$(pwd) \
-      adnriv/opencv \
+      adnrv/opencv \
       /script/to/run; /or/set/of/them
 
 ## Build applications
