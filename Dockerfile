@@ -41,8 +41,11 @@ RUN apt-get -y update -qq && \
                        # Missing libraries for GTK
                        libatk-adaptor \
                        libcanberra-gtk-module \
-                       &&\
 
+                       # Tools
+                       imagemagick \
+
+                       &&\
 
     # Latest ubuntu come without jasper
     # So, get it, install it, and then clean
