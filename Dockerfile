@@ -64,9 +64,9 @@ RUN apt-get -y update -qq && \
 # Note that ${PYTHON_VERSION%%.*} extracts the major version
 # Details: https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html#Shell-Parameter-Expansion
 RUN pip${PYTHON_VERSION%%.*} install --no-cache-dir --upgrade pip &&\
-    pip${PYTHON_VERSION%%.*} install --no-cache-dir numpy matplotlib
+    pip${PYTHON_VERSION%%.*} install --no-cache-dir numpy matplotlib scipy
 
-    # Get OpenCV 
+    # Get OpenCV
 RUN git clone https://github.com/opencv/opencv.git &&\
     cd opencv &&\
     git checkout $OPENCV_VERSION &&\
