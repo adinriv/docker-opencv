@@ -1,5 +1,5 @@
 FROM ubuntu:rolling
-MAINTAINER adin 
+MAINTAINER adin
 
 ENV PYTHON_VERSION 3.6
 ENV OPENCV_VERSION 3.2.0
@@ -27,7 +27,7 @@ RUN apt-get -y update -qq && \
                        libavcodec-dev \
                        libavformat-dev \
                        libswscale-dev \
-                        
+
                        # Optional
                        libtbb2 libtbb-dev \
                        libjpeg-dev \
@@ -41,6 +41,9 @@ RUN apt-get -y update -qq && \
                        # Missing libraries for GTK
                        libatk-adaptor \
                        libcanberra-gtk-module \
+
+                       # For use matplotlib.pyplot in python
+                       python$PYTHON_VERSION-tk \
 
                        # Tools
                        imagemagick \
@@ -108,7 +111,7 @@ RUN git clone https://github.com/opencv/opencv.git &&\
     # Clean the install from sources
     cd / &&\
     rm -r /opencv &&\
-    rm -r /opencv_contrib 
+    rm -r /opencv_contrib
 
 # Change working dirs
 WORKDIR /builds
