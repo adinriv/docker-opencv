@@ -35,6 +35,7 @@ RUN apt-get -y update -qq && \
                        libtiff-dev \
                        libv4l-dev \
                        libdc1394-22-dev \
+                       libvtk6-dev \
 
                        qt4-default \
 
@@ -47,6 +48,7 @@ RUN apt-get -y update -qq && \
 
                        # Tools
                        imagemagick \
+                       meshlab \
 
                        &&\
 
@@ -85,6 +87,7 @@ RUN git clone https://github.com/opencv/opencv.git &&\
     cmake \
       -D CMAKE_BUILD_TYPE=RELEASE \
       -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D ENABLE_PRECOMPILED_HEADERS=OFF \
 
       -D INSTALL_C_EXAMPLES=OFF \
       -D INSTALL_PYTHON_EXAMPLES=OFF \
@@ -103,6 +106,7 @@ RUN git clone https://github.com/opencv/opencv.git &&\
       -D WITH_CSTRIPES=ON \
       -D WITH_OPENCL=ON \
       -D WITH_V4L=ON \
+      -D WITH_VTK=ON \
       .. &&\
     make -j$NUM_CORES &&\
     make install &&\
