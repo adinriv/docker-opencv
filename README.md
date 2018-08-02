@@ -1,4 +1,4 @@
-# Dockerised OpenCV (3.2)
+# Dockerised OpenCV (3.4)
 
 A dockerised version of OpenCV with everything you need to compile and test OpenCV-based applications.
 
